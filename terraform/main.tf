@@ -44,9 +44,9 @@ resource "yandex_kubernetes_cluster" "this" {
     }
   }
 
-  service_account_id       = yandex_iam_service_account.cluster.id
+  service_account_id      = yandex_iam_service_account.cluster.id
   node_service_account_id = yandex_iam_service_account.nodes.id
-  release_channel          = "STABLE"
+  release_channel         = "STABLE"
 
   depends_on = [
     yandex_resourcemanager_folder_iam_member.cluster_editor,
@@ -105,8 +105,8 @@ resource "yandex_mdb_postgresql_cluster" "this" {
   }
 
   host {
-    zone      = var.zone
-    subnet_id = yandex_vpc_subnet.this.id
+    zone             = var.zone
+    subnet_id        = yandex_vpc_subnet.this.id
     assign_public_ip = false
   }
 }
