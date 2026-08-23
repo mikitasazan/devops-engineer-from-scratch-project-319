@@ -47,6 +47,27 @@ All other variables supported by Spring Boot can be overridden the same way; che
 
 ## Running
 
+## Terraform infrastructure
+
+The `terraform/` directory defines the network, Managed Kubernetes cluster,
+single-node group, PostgreSQL database, Object Storage bucket, and Lockbox
+secret used by the deployment.
+
+1. Install Terraform and the Yandex Cloud provider.
+2. Copy `terraform.tfvars.example` to `terraform/terraform.tfvars` and set the
+   cloud, folder, bucket, database, and Object Storage credentials.
+3. Run from the repository root:
+
+    ```bash
+    terraform -chdir=terraform init
+    terraform -chdir=terraform validate
+    terraform -chdir=terraform plan
+    terraform -chdir=terraform apply
+    ```
+
+The state and credentials are excluded by `.gitignore`. Do not commit a real
+`terraform.tfvars` or a state file.
+
 ### Backend (local dev profile)
 
 1. Install prerequisites from the **Requirements** section.

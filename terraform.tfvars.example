@@ -1,0 +1,7 @@
+yc_token           = ""
+cloud_id           = "your-cloud-id"
+folder_id          = "your-folder-id"
+bucket_name        = "your-unique-bucket-name"
+db_password        = "change-me"
+storage_access_key = "your-access-key"
+storage_secret_key = "your-secret-key"
