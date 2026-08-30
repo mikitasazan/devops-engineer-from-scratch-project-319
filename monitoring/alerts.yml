@@ -1,0 +1,24 @@
+groups:
+  - name: bulletin-board
+    rules:
+      - alert: BulletinBoardPodsUnavailable
+        expr: kube_deployment_status_replicas_available{namespace="bulletin-board",deployment="bulletin-board"} < 1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: Bulletin Board has no available pods
+      - alert: BulletinBoardHighErrorRate
+        expr: sum(rate(http_server_requests_seconds_count{namespace="bulletin-board",status=~"5.."}[5m])) > 0.05
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Bulletin Board 5xx rate is high
+      - alert: BulletinBoardHighLatency
+        expr: histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{namespace="bulletin-board"}[5m])) by (le)) > 1
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Bulletin Board p95 latency is above one second

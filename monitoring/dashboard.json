@@ -1,0 +1,12 @@
+{
+  "title": "Bulletin Board Kubernetes",
+  "description": "Core availability and performance panels for the bulletin-board namespace.",
+  "panels": [
+    {"title": "Request rate", "query": "sum(rate(http_server_requests_seconds_count{namespace=\"bulletin-board\"}[5m]))"},
+    {"title": "P95 latency", "query": "histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{namespace=\"bulletin-board\"}[5m])) by (le))"},
+    {"title": "5xx responses", "query": "sum(rate(http_server_requests_seconds_count{namespace=\"bulletin-board\",status=~\"5..\"}[5m]))"},
+    {"title": "Pod restarts", "query": "sum(kube_pod_container_status_restarts_total{namespace=\"bulletin-board\"})"},
+    {"title": "CPU", "query": "sum(rate(container_cpu_usage_seconds_total{namespace=\"bulletin-board\"}[5m]))"},
+    {"title": "Memory", "query": "sum(container_memory_working_set_bytes{namespace=\"bulletin-board\"})"}
+  ]
+}

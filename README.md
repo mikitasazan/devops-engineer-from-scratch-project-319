@@ -90,6 +90,11 @@ example secret. Replace it with a real secret before deploying to a shared
 cluster. Use `make k8s-status` to inspect the workload and
 `make k8s-port-forward` for a temporary local connection.
 
+Monitoring and alert examples are in `monitoring/`. They cover request rate,
+p95 latency, 5xx responses, pod restarts, CPU, memory, and centralized pod
+logs. The dashboard and alert definitions require the identifiers of the
+target Yandex Cloud folder and notification channel before applying them.
+
 ### Backend (local dev profile)
 
 1. Install prerequisites from the **Requirements** section.
