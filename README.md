@@ -1,6 +1,8 @@
-# Project DevOps Deploy
+# Bulletin Board on Kubernetes
 
-Bulletin board service.
+Учебный проект по запуску bulletin board в Kubernetes-кластере Yandex Cloud.
+В репозитории есть Terraform-инфраструктура, Kubernetes-манифесты, Helm-чарт,
+мониторинг и необязательная синхронизация секретов через Lockbox.
 
 > **Fork policy**: this upstream repository is read-only. We do not review or merge pull requests and we do not accept infrastructure changes (Dockerfiles, Ansible roles, CI/CD workflows, etc.). To experiment or extend the project, fork it and work inside your own repository.
 
@@ -50,7 +52,7 @@ All other variables supported by Spring Boot can be overridden the same way; che
 ## Terraform infrastructure
 
 The `terraform/` directory defines the network, Managed Kubernetes cluster,
-single-node group, PostgreSQL database, Object Storage bucket, and Lockbox
+two-node group, PostgreSQL database, Object Storage bucket, and Lockbox
 secret used by the deployment.
 
 1. Install Terraform and the Yandex Cloud provider.
