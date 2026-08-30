@@ -1,0 +1,36 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/mikitasazan/devops-engineer-from-scratch-project-319
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  httpPort: 8080
+  managementPort: 9090
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: "1"
+    memory: 1Gi
+
+config:
+  springProfilesActive: prod
+  managementServerPort: "9090"
+
+secrets:
+  datasourceUrl: jdbc:postgresql://postgres.example.internal:5432/bulletins
+  datasourceUsername: bulletins
+  datasourcePassword: change-me
+  storageAccessKey: change-me
+  storageSecretKey: change-me
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 70

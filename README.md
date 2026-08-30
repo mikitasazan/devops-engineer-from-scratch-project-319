@@ -95,6 +95,24 @@ p95 latency, 5xx responses, pod restarts, CPU, memory, and centralized pod
 logs. The dashboard and alert definitions require the identifiers of the
 target Yandex Cloud folder and notification channel before applying them.
 
+## Helm releases
+
+The parameterized chart is in `k8s/bulletin-board/`. Check and render it
+locally, or install it into a cluster:
+
+```bash
+helm lint k8s/bulletin-board
+helm template bulletin-board k8s/bulletin-board
+helm upgrade --install bulletin-board k8s/bulletin-board \
+  --namespace bulletin-board --create-namespace \
+  --set image.tag=<immutable-image-tag>
+helm history bulletin-board --namespace bulletin-board
+helm rollback bulletin-board <revision> --namespace bulletin-board
+```
+
+Sensitive values must be supplied through a protected values file or a secret
+manager in the deployment environment; do not commit production credentials.
+
 ### Backend (local dev profile)
 
 1. Install prerequisites from the **Requirements** section.

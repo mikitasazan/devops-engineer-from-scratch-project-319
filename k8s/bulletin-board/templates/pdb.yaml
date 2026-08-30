@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "bulletin-board.fullname" . }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "bulletin-board.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
