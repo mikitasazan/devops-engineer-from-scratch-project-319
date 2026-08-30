@@ -40,4 +40,5 @@ out/
 *.tfstate
 *.tfstate.*
 terraform.tfvars
+k8s/secret.yaml
 *.tfplan

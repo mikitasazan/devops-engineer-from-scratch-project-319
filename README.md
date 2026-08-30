@@ -68,6 +68,28 @@ secret used by the deployment.
 The state and credentials are excluded by `.gitignore`. Do not commit a real
 `terraform.tfvars` or a state file.
 
+## Kubernetes deployment
+
+The `k8s/` directory contains a namespace, application configuration, an
+example secret, a rolling Deployment, and an internal Service. Copy
+`k8s/secret.example.yaml` to `k8s/secret.yaml`, replace the placeholder values,
+and apply the manifests:
+
+```bash
+kubectl apply -f k8s/namespace.yaml -f k8s/configmap.yaml
+kubectl apply -f k8s/secret.yaml
+kubectl apply -f k8s/deployment.yaml -f k8s/service.yaml
+kubectl -n bulletin-board rollout status deployment/bulletin-board
+kubectl -n bulletin-board get pods,svc
+kubectl -n bulletin-board port-forward svc/bulletin-board 8080:8080
+curl http://localhost:8080/actuator/health
+```
+
+For the safe default used in this repository, `make k8s-apply` applies the
+example secret. Replace it with a real secret before deploying to a shared
+cluster. Use `make k8s-status` to inspect the workload and
+`make k8s-port-forward` for a temporary local connection.
+
 ### Backend (local dev profile)
 
 1. Install prerequisites from the **Requirements** section.

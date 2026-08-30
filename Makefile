@@ -24,4 +24,15 @@ lint:
 lint-fix:
 	./gradlew spotlessApply
 
-.PHONY: build
+k8s-apply:
+	kubectl apply -f k8s/namespace.yaml -f k8s/configmap.yaml
+	kubectl apply -f k8s/secret.example.yaml
+	kubectl apply -f k8s/deployment.yaml -f k8s/service.yaml
+
+k8s-status:
+	kubectl -n bulletin-board get deploy,pods,svc
+
+k8s-port-forward:
+	kubectl -n bulletin-board port-forward svc/bulletin-board 8080:8080
+
+.PHONY: build k8s-apply k8s-status k8s-port-forward

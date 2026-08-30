@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bulletin-board
+  namespace: bulletin-board
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: bulletin-board
+  template:
+    metadata:
+      labels:
+        app: bulletin-board
+    spec:
+      containers:
+        - name: bulletin-board
+          image: ghcr.io/mikitasazan/devops-engineer-from-scratch-project-319:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: management
+              containerPort: 9090
+          envFrom:
+            - configMapRef:
+                name: bulletin-board-config
+            - secretRef:
+                name: bulletin-board-secrets
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1
+              memory: 1Gi
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: management
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: management
+            initialDelaySeconds: 40
+            periodSeconds: 20
