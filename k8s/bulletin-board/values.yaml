@@ -29,6 +29,11 @@ secrets:
   storageAccessKey: change-me
   storageSecretKey: change-me
 
+lockbox:
+  enabled: false
+  secretStoreName: yandex-lockbox
+  secretId: replace-with-lockbox-secret-id
+
 autoscaling:
   enabled: true
   minReplicas: 2

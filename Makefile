@@ -47,4 +47,8 @@ helm-install:
 helm-rollback:
 	helm rollback bulletin-board 0 --namespace bulletin-board
 
+helm-lockbox:
+	helm upgrade --install bulletin-board k8s/bulletin-board --namespace bulletin-board \
+		--set lockbox.enabled=true --set lockbox.secretId=$${LOCKBOX_SECRET_ID}
+
 .PHONY: build k8s-apply k8s-status k8s-port-forward

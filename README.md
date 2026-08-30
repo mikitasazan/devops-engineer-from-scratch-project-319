@@ -113,6 +113,26 @@ helm rollback bulletin-board <revision> --namespace bulletin-board
 Sensitive values must be supplied through a protected values file or a secret
 manager in the deployment environment; do not commit production credentials.
 
+## Lockbox rotation
+
+The chart has an optional `ExternalSecret` template. Install External Secrets
+Operator and configure the Yandex provider with
+`k8s/lockbox-cluster-secret-store.example.yaml`. Then deploy with the Lockbox
+secret ID supplied outside Git:
+
+```bash
+export LOCKBOX_SECRET_ID=<lockbox-secret-id>
+make helm-lockbox
+kubectl -n bulletin-board get externalsecret
+kubectl -n bulletin-board rollout status deployment/bulletin-board
+```
+
+When a Lockbox value changes, External Secrets refreshes the Kubernetes Secret
+on its next sync. The Deployment consumes that Secret through `envFrom`; use a
+controlled rollout after rotation so new pods receive the updated values. The
+Lockbox secret ID and cloud identifiers belong in the deployment environment,
+not in the repository.
+
 ### Backend (local dev profile)
 
 1. Install prerequisites from the **Requirements** section.
