@@ -78,7 +78,7 @@ and apply the manifests:
 ```bash
 kubectl apply -f k8s/namespace.yaml -f k8s/configmap.yaml
 kubectl apply -f k8s/secret.yaml
-kubectl apply -f k8s/deployment.yaml -f k8s/service.yaml
+kubectl apply -f k8s/deployment.yaml -f k8s/service.yaml -f k8s/pdb.yaml -f k8s/hpa.yaml
 kubectl -n bulletin-board rollout status deployment/bulletin-board
 kubectl -n bulletin-board get pods,svc
 kubectl -n bulletin-board port-forward svc/bulletin-board 8080:8080

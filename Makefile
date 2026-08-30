@@ -27,7 +27,7 @@ lint-fix:
 k8s-apply:
 	kubectl apply -f k8s/namespace.yaml -f k8s/configmap.yaml
 	kubectl apply -f k8s/secret.example.yaml
-	kubectl apply -f k8s/deployment.yaml -f k8s/service.yaml
+	kubectl apply -f k8s/deployment.yaml -f k8s/service.yaml -f k8s/pdb.yaml -f k8s/hpa.yaml
 
 k8s-status:
 	kubectl -n bulletin-board get deploy,pods,svc

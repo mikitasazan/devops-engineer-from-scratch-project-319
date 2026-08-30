@@ -13,4 +13,4 @@ spec:
     - name: management
       port: 9090
       targetPort: management
-  type: ClusterIP
+  type: LoadBalancer
